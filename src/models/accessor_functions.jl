@@ -1,3 +1,4 @@
+using Symbolics
 # function get_parameter_symbols(rs::ReactionSystem; filter_tunable = true)
 #     if filter_tunable
 #         return Symbolics.tosymbol.(tunable_parameters(rs, parameters(rs)); escape = false)

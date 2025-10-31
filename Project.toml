@@ -28,9 +28,11 @@ StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
 SymbolicIndexingInterface = "2efcf032-c050-4f8e-a9bb-153293bab1f5"
 Term = "22787eb5-b846-44ae-b979-8e399b8463ab"
 UnicodePlots = "b8865327-cd53-5732-bb35-84acbb429228"
+Symbolics = "0c5d862f-8fc5-44d9-94d3-e55075b841a5"
 
 [compat]
 julia = "1.10, 1.11"
+Symbolics = "5","4","3","2","1","0"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
