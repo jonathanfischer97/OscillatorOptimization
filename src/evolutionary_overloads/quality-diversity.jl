@@ -297,7 +297,6 @@ end
 
 Evolutionary.default_values(x::DimArray) = x
 
-
 function penalty!(fitness::AbstractVector{T}, c::WorstFitnessConstraints{T,F}, population::SlicedDimArray) where {T,F}
     worst = minimum(fitness)
     p = zeros(size(value(c, first(population))))

@@ -33,9 +33,8 @@ const trimer_rn = @reaction_network trimer_rn begin
         kr⁵ᵐ::Float64 = 0.001, [bounds = (1e-3, 1e3)] 
         kf⁶ᵐ::Float64 = 0.001, [bounds = (1e-3, 1e2)] 
         kr⁶ᵐ::Float64 = 0.001, [bounds = (1e-3, 1e3)] 
-        kf⁷ᵐ::Float64 = 0.001, [bounds = (1e-3, 1e2)] 
-        kr⁷ᵐ::Float64 = 0.001, [bounds = (1e-3, 1e3)] 
-        DF::Float64 = 2582.7847577988523, [bounds = (1.0, 1e4)]
+        kf⁷ᵐ::Float64 = 0.001, [bounds = (1e-3, 1e2)]
+        kr⁷ᵐ::Float64 = 0.001, [bounds = (1e-3, 1e3)]
     end 
 
     @species begin

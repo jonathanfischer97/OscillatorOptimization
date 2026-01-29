@@ -34,11 +34,11 @@ function extract_trace_data(results)
     # Pre-allocate arrays
     # Store each generation's population/objectives before combining
     # populations = Vector{typeof(first(results.trace).metadata["population"])}(undef, n_generations)
-    @info "Type of first(results.trace).metadata[\"population\"]: $(typeof(first(results.trace).metadata["population"]))"
+    @debug "Type of first(results.trace).metadata[\"population\"]: $(typeof(first(results.trace).metadata["population"]))"
     # full_population = similar(first(results.trace).metadata["population"], total_individuals, size(first(results.trace).metadata["population"], 1))
     full_population = Matrix{Float64}(undef, size(first(results.trace).metadata["population"], 1), total_individuals)
-    @info "Type of full_population: $(typeof(full_population))"
-    # @info "Size of full_population: $(size(full_population))"
+    @debug "Type of full_population: $(typeof(full_population))"
+    # @debug "Size of full_population: $(size(full_population))"
     # objective_values = Vector{typeof(first(results.trace).metadata["objective_values"])}(undef, n_generations)
     objective_values = Matrix{Float64}(undef, size(first(results.trace).metadata["objective_values"], 1), total_individuals)
     # Track generation number and position for each individual
@@ -53,8 +53,8 @@ function extract_trace_data(results)
         
         # Store population and objective values for this generation
         # populations[gen] = tr.metadata["population"]  # Direct assignment for array elements
-        # @info "Type of tr.metadata[\"population\"]: $(typeof(tr.metadata["population"]))"
-        @info "Size of tr.metadata[\"population\"]: $(size(tr.metadata["population"]))"
+        # @debug "Type of tr.metadata[\"population\"]: $(typeof(tr.metadata["population"]))"
+        @debug "Size of tr.metadata[\"population\"]: $(size(tr.metadata["population"]))"
         full_population[:, range_idx] .= tr.metadata["population"]
         # objective_values[gen] = tr.metadata["objective_values"]  
         objective_values[:, range_idx] .= tr.metadata["objective_values"]
@@ -72,7 +72,7 @@ function extract_trace_data(results)
 
     full_population_dimarray = DimArray(full_population, (dims(first(results.trace).metadata["population"], 1), Individuals); metadata = metadata(first(results.trace).metadata["population"]))
 
-    @info "Size of full_population_dimarray: $(size(full_population_dimarray))"
+    @debug "Size of full_population_dimarray: $(size(full_population_dimarray))"
     
     return (
         populations = full_population_dimarray,
@@ -122,7 +122,7 @@ function extract_unique_data(trace_data)
     sliced_dimarray = eachslice(trace_data.populations, dims = 2)
     unique_idxs = unique(i -> sliced_dimarray[i], eachindex(sliced_dimarray))
 
-    @info "Type of trace_data.populations: $(typeof(trace_data.populations))"
+    @debug "Type of trace_data.populations: $(typeof(trace_data.populations))"
     
     (
         population = @view(trace_data.populations[:, unique_idxs]),

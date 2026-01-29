@@ -60,17 +60,6 @@ function OptimizationReactionSystem(rx_sys::ReactionSystem, alg::T = Rodas5P(aut
     set_parameters! = setp(oprob, settable_parameter_symbols)
     set_species! = setu(oprob, settable_species_symbols)
 
-    # @unpack Amem_old, Amem = rx_sys
-
-    # Create the get_Amem function using getu
-    # get_Amem = getu(osys, (Amem_old, Amem))
-
-    # Testing trimer model with new observable Tmem, which I'm just replacing Amem with for now. Need to eventually make this pattern more general, perhaps allowing observables to be specified as a keyword argument.
-    # Remove legacy hard-wired observable handling ------------------------------------------------
-    # (previous @unpack Amem_old, TrimerYield block and associated get_Amem logic deleted)
-
-    # Create the SavingCallback function to save the A/membrane ratio observable to SavedValues
-
     # Determine fitness observables via trait
     fft_sym, td_sym = fitness_observables(rx_sys)
 

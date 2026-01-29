@@ -1,5 +1,5 @@
 """
-Welcome to GeometricallyTunableOscillator!
+Welcome to OscillatorOptimization!
 
 This package implements computational modeling of a biological oscillator that can be
 tuned by adjusting the surface-area to volume ratio. The main functionality allows
@@ -7,16 +7,12 @@ you to optimize reaction systems using genetic algorithms to find parameter sets
 that produce desired oscillatory behavior.
 
 To use this file:
-1. Open Julia REPL with `julia --project`
-2. Navigate to this directory
-3. Run: include("main.jl")
+1. Run from command line: julia --project examples/main.jl
+2. Or from Julia REPL: include("examples/main.jl")
 """
 
 #= Step 1: Setup Environment =#
-using DrWatson  # For project management
-@quickactivate "GeometricallyTunableOscillator"
-include(srcdir("OscTools", "OscTools.jl"))
-using .OscTools
+using OscillatorOptimization
 
 begin 
     using LinearAlgebra
@@ -34,13 +30,13 @@ end
 #- trimer_rn:       fullrn extended with heterotrimer system via allowing adaptor binding for each of the monomers
 
 # Set up the model with fixed parameters that won't be optimized
-fixed_params = Dict(
-    :DF => 1000.0,  # Dimensionality Factor: dimensionless surface-area to volume ratio scaling factor
+fixed_params = Dict{Symbol, Float64}(
+    :DF => 20.0,  # Dimensionality Factor: dimensionless surface-area to volume ratio scaling factor
     # Add other fixed parameters as needed
 )
 
 # Create an optimization system
-opt_sys = OptimizationReactionSystem(trimer_rn; fixed_params)
+opt_sys = OptimizationReactionSystem(fullrn; fixed_params)
 
 #= Step 3: Run Genetic Algorithm Optimization =#
 results = run_optimization(10000, opt_sys;
@@ -65,15 +61,15 @@ results = run_optimization(10000, opt_sys;
     
     # Optional Parameters
     seed = 1234,           # Random seed for reproducibility, uses MersenneTwister
-    show_trace = true,     # Show optimization progress
+    show_trace = false,    # Disable trace display to avoid Term.jl display issues
     show_every = 1,        # Update frequency for progress display
-    parallelization = :threadprogress  # Use multi-threading for evaluations and show progress bar in stdout
+    parallelization = :thread  # Use multi-threading for evaluations and show progress bar in stdout
 )
 
 #= Step 4: Save Results =#
 date_string = Dates.format(today(), "mm-dd-yy")
-git_string = gitdescribe(; warn=false)
-CSV.write("results_$(date_string)_$(git_string).csv", results.df)
+# git_string = gitdescribe(; warn=false)  # Requires DrWatson
+CSV.write("results_$(date_string).csv", results.df)
 
 #= Step 5: Basic Analysis =#
 println("\nOptimization Results Summary:")
@@ -106,8 +102,8 @@ exploitative_results = run_optimization(1000, opt_sys;
 
 """
 For more information:
-- Documentation: https://jonathanfischer97.github.io/GeometricallyTunableOscillator/dev/
-- Source: https://github.com/jonathanfischer97/GeometricallyTunableOscillator
+- Documentation: https://jonathanfischer97.github.io/OscillatorOptimization/dev/
+- Source: https://github.com/jonathanfischer97/OscillatorOptimization
 - Authors: Jonathan Fischer, Margaret Johnson, Ezra Greenberg
 """
 

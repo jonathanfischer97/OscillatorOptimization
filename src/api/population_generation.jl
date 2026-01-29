@@ -80,8 +80,6 @@ Fixed inputs are excluded from the population generation process and resulting D
 """
 function generate_population(rx_sys::ReactionSystem, n::Int, fixed_inputs_dict::Dict{Symbol, Float64} = Dict{Symbol, Float64}(), constraint_test = nothing; rng = default_rng())
 
-    # defval_dictionary = get_symbols_defval_dictionary(sys)
-    # default_values = get_default_val_vector(defval_dictionary)
     default_values = get_default_values(rx_sys, keys(fixed_inputs_dict))
     # @info "Default values: $default_values"
     # Initialize default population matrix
@@ -177,7 +175,6 @@ function dimarray_to_df(population::DimArray, objective_values)
     
     return selected_results_df
 end
-
 
 
 
