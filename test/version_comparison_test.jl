@@ -5,6 +5,7 @@ using Test, Random
 using OscillatorOptimization
 using DataFrames: nrow
 using Statistics: mean, std
+using SciMLBase: successful_retcode
 
 @testset "Version comparison tests" begin
     # Fixed system setup
@@ -19,8 +20,8 @@ using Statistics: mean, std
     @testset "Individual ODE solution reproducibility" begin
         # Test that the same individual produces the same ODE solution
         sol, saved_array = solve_odes(test_individual, opt_sys)
-        
-        @test sol.retcode == :Success
+
+        @test successful_retcode(sol)
         @test size(saved_array, 1) == 2  # Two observables
         @test size(saved_array, 2) > 0   # Time points
         
@@ -53,7 +54,7 @@ using Statistics: mean, std
         
         # Test the intermediate steps
         fft_observable = saved_array[1, :]
-        fftData = getFrequencies(fft_observable, opt_sys.rfft_plan)
+        fftData = getFrequencies(fft_observable)  # Use version without pre-computed plan
         fft_peaks = find_fft_peaks(fftData)
         
         println("FFT data length: ", length(fftData))

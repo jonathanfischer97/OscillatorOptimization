@@ -7,6 +7,7 @@ module OscillatorOptimization
     using DiffEqCallbacks
     using ModelingToolkit: setmetadata, VariableTunable, VariableBounds, istunable, parameters, unknowns, getbounds, tunable_parameters, AbstractSystem, extend, structural_simplify, independent_variable, hasbounds, get_defaults, varmap_to_vars, get_observed, observed, defaults, getname
     using SymbolicIndexingInterface: getu, getp, setp, setu, parameter_symbols, parameter_values, all_variable_symbols
+    using Symbolics
     using ADTypes
 
     #- Population generation
@@ -86,7 +87,7 @@ module OscillatorOptimization
 
     # Fitness function definition
     include("api/fitness_functions/FitnessFunction.jl")
-    export calculate_fitness, calculate_fitness!, find_amem_peaks, find_fft_peaks, find_amem_peaks_no_simd
+    export calculate_fitness, calculate_fitness!, find_amem_peaks, find_fft_peaks, find_amem_peaks_no_simd, check_oscillatory, check_oscillation_regularity
 
     # Evolutionary optimization overloads for quality-diversity and trace
     include("evolutionary_overloads/quality-diversity.jl")
