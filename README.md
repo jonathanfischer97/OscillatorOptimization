@@ -2,7 +2,7 @@
 
 ## **Overview**
 
-> **Note for AI agents:** For current development status, progress tracking, and known issues, see [DEVELOPMENT.md](DEVELOPMENT.md).
+> **Note for AI agents:** For current development status, progress tracking, known issues, and development roadmaps, see [DEVELOPMENT.md](DEVELOPMENT.md).
 
 This package implements a custom Quality Diversity (QD) evolutionary algorithm to optimize oscillatory biological systems modeled with differential equations. The project supports two main models: a lipid oscillator system and a coupled trimer assembly system. The goal is to find parameter sets that produce desired oscillatory behavior in systems of ordinary differential equations (ODEs). The codebase integrates with the [Evolutionary.jl](https://github.com/wildart/Evolutionary.jl) framework, uses trait-based dispatch for model-agnostic optimization, and leverages Julia's capabilities for high-performance numerical computing.
 
@@ -42,6 +42,12 @@ This package implements a custom Quality Diversity (QD) evolutionary algorithm t
 - Results aggregation and data processing for analysis and visualization.
 
 ## **Installation**
+
+### ⚠️ Julia Version Requirement
+
+**This package currently requires Julia 1.10 only.** Julia 1.11+ are not yet supported due to breaking API changes in `SymbolicIndexingInterface.jl` and `DiffEqCallbacks.jl`. See the "Julia 1.11+ Migration" section in [DEVELOPMENT.md](DEVELOPMENT.md) for the migration roadmap to support newer Julia versions.
+
+### Installing the Package
 
 Since OscillatorOptimization.jl is not yet registered in the official Julia General registry, you can install it directly from GitHub:
 
